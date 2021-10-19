@@ -1,0 +1,2 @@
+class EvacuationArea < ApplicationRecord
+end

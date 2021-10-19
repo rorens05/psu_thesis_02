@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  menu parent: 'Users', label: "End Users"
+  menu false
 
   permit_params :email, 
                 :username, 

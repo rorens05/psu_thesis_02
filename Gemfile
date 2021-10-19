@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
+# flat theme
+gem 'font-awesome-rails'
+gem 'active_admin_flat_skin'
 # for creating beautiful charts
 gem "chartkick"
 # datetime picker for active admin

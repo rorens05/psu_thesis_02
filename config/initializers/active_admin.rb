@@ -143,7 +143,7 @@ ActiveAdmin.setup do |config|
   #
   # Enable and disable Batch Actions
   #
-  config.batch_actions = true
+  # config.batch_actions = true
 
   # == Controller Filters
   #
@@ -244,6 +244,7 @@ ActiveAdmin.setup do |config|
       menu.add label: "Games", priority: 1
       menu.add label: "Settings", priority: 11
     end
+    admin.download_links = false
   end
 
   # == Download Links

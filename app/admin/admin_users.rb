@@ -1,5 +1,5 @@
 ActiveAdmin.register AdminUser do
-  menu parent: 'Users'
+  # menu parent: 'Users'
   permit_params :email, :name, :role, :status, :password, :password_confirmation, :image
 
   index do
