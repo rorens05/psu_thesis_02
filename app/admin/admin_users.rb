@@ -5,12 +5,11 @@ ActiveAdmin.register AdminUser do
   index do
     selectable_column
     id_column
-    column :email
     column :name
-    column :role
-    column :status
-    column :current_sign_in_at
-    column :sign_in_count
+    column :email
+    column :status do |user|
+      status_tag user.status
+    end
     column :created_at
     actions
   end
@@ -33,6 +32,21 @@ ActiveAdmin.register AdminUser do
       f.input :password_confirmation
     end
     f.actions
+  end
+
+  show do
+    panel "Admin User Details" do
+      attributes_table_for admin_user do
+        row :id
+        row :email
+        row :name
+        row :status do 
+          status_tag admin_user.status
+        end
+        row :created_at
+        row :updated_at
+      end
+    end
   end
 
 end

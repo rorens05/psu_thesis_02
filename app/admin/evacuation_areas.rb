@@ -17,5 +17,13 @@ ActiveAdmin.register EvacuationArea do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
+
+  index do
+    selectable_column
+    id_column
+    column :name
+    column :created_at
+    column "Last updated at", :updated_at, sortable: :updated_at
+    actions
+  end
 end
