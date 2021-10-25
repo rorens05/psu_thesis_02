@@ -21,6 +21,9 @@ ActiveAdmin.register CoastalArea do
   #   permitted
   # end
 
+  filter :name
+  filter :risk_level, as: :select
+
   index do
     selectable_column
     id_column

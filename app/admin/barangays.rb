@@ -16,6 +16,9 @@ ActiveAdmin.register Barangay do
   #   permitted
   # end
   
+  filter :name
+  filter :flood_level_status, as: :select
+
   index do
     selectable_column
     id_column
