@@ -5,6 +5,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require game_timer
+//= require google_map
 //= require chartkick
 //= require Chart.bundle
 
@@ -60,3 +61,4 @@ document.addEventListener("DOMContentLoaded", function() {
   
   initLobby()
 });
+

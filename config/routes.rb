@@ -87,6 +87,11 @@ Rails.application.routes.draw do
           get :cities
         end
       end
+      resources :map_data do
+        collection do 
+          get :barangay
+        end
+      end
       resources :networks, only: [:index]
       resources :roulettes, only: [:index, :show] do
         member do 
