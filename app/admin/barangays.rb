@@ -1,20 +1,7 @@
 ActiveAdmin.register Barangay do
   menu priority: 2
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  permit_params :name, :latlong, :flood_level_status
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:name, :latlong]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+  permit_params :name, :latlong, :flood_level_status, :population, :estimated_elevation
   
   filter :name
   filter :flood_level_status, as: :select
@@ -26,6 +13,7 @@ ActiveAdmin.register Barangay do
     column :flood_level_status do |i|
       status_tag i.flood_level_status
     end
+    column :population
     column "Last updated at", :updated_at, sortable: :updated_at
     actions
   end 
@@ -39,6 +27,8 @@ ActiveAdmin.register Barangay do
         row :flood_level_status do 
           status_tag barangay.flood_level_status
         end
+        row :population
+        row :estimated_elevation
         row :created_at 
         row :updated_at 
       end

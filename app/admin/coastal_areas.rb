@@ -1,5 +1,5 @@
 ActiveAdmin.register CoastalArea do
-  menu priority: 3
+  menu priority: 3, parent: 'Risk Areas'
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

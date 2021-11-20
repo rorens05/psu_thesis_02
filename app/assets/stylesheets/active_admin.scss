@@ -281,3 +281,9 @@ select {
     margin: 0 !important;
   }
 }
+
+.menu_item.has_nested {
+  .slided_down {
+    padding-top: 20px !important;
+  }
+}

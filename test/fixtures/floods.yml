@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  district: 1
+  classification: 1
+  barangay_id: 1
+  zone: MyString
+  no_of_affected_household: 1
+  latlong: MyString
+  risk_level: 1
+
+two:
+  name: MyString
+  district: 1
+  classification: 1
+  barangay_id: 1
+  zone: MyString
+  no_of_affected_household: 1
+  latlong: MyString
+  risk_level: 1

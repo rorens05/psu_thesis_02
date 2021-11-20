@@ -243,6 +243,7 @@ ActiveAdmin.setup do |config|
     admin.build_menu do |menu|
       menu.add label: "Games", priority: 1
       menu.add label: "Settings", priority: 11
+      menu.add label: "Risk Areas", priority: 2
     end
     admin.download_links = false
   end

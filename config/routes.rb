@@ -90,6 +90,11 @@ Rails.application.routes.draw do
       resources :map_data do
         collection do 
           get :barangay
+          get :tsunami
+          get :evacuation
+          get :flood
+          get :storm_surge
+          
         end
       end
       resources :networks, only: [:index]

@@ -1,6 +1,6 @@
-class TsunamiArea < ApplicationRecord
+class Flood < ApplicationRecord
   has_many :water_levels, as: :entity, dependent: :destroy
-  enum risk_level: ["LOW RISK", "MEDIUM RISK", "HIGH RISK"]
+  enum risk_level: ["LOW RISK", "MEDIUM RISK", "HIGH RISK", "NO RISK"]
   enum district: ["Central", "Southern", "Western"]
   enum classification: ["Urban", "Rural"]
   belongs_to :barangay, optional: true

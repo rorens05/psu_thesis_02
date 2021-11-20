@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_19_190652) do
+ActiveRecord::Schema.define(version: 2021_11_20_124711) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -88,6 +88,8 @@ ActiveRecord::Schema.define(version: 2021_10_19_190652) do
     t.string "latlong"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "population"
+    t.decimal "estimated_elevation", precision: 10, scale: 2
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -122,6 +124,25 @@ ActiveRecord::Schema.define(version: 2021_10_19_190652) do
     t.string "latlong"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "barangay_id"
+    t.integer "total_evacuation_center"
+    t.string "exact_location"
+    t.decimal "proximity", precision: 8, scale: 2
+    t.decimal "floor_area", precision: 8, scale: 2
+    t.integer "no_of_evacuees"
+    t.text "other_character"
+  end
+
+  create_table "floods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "district"
+    t.integer "classification"
+    t.integer "barangay_id"
+    t.string "zone"
+    t.integer "number_of_hhs"
+    t.string "latlong"
+    t.integer "risk_level"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "mobile_releases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -148,6 +169,18 @@ ActiveRecord::Schema.define(version: 2021_10_19_190652) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "storm_surges", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "district"
+    t.integer "classification"
+    t.integer "barangay_id"
+    t.string "zone"
+    t.integer "no_of_affected_household"
+    t.string "latlong"
+    t.integer "risk_level"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "transactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "category_id", null: false
@@ -159,6 +192,18 @@ ActiveRecord::Schema.define(version: 2021_10_19_190652) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
+  end
+
+  create_table "tsunami_areas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "latlong"
+    t.integer "risk_level", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "district"
+    t.integer "classification"
+    t.integer "number_of_hhs"
+    t.integer "barangay_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
