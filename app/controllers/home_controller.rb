@@ -1,5 +1,14 @@
 class HomeController < ApplicationController
   def index;
-    redirect_to admin_dashboard_path
+  end
+  def reports
+  end
+  def evacuation_areas
+  end
+  def barangays
+  end
+  def contact_us
+  end
+  def about_us
   end
 end

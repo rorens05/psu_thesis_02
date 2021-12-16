@@ -10,9 +10,9 @@ ActiveAdmin.register Barangay do
     selectable_column
     id_column
     column :name
-    column :flood_level_status do |i|
-      status_tag i.flood_level_status
-    end
+    # column :flood_level_status do |i|
+    #   status_tag i.flood_level_status
+    # end
     column :population
     column "Last updated at", :updated_at, sortable: :updated_at
     actions
@@ -24,29 +24,31 @@ ActiveAdmin.register Barangay do
         row :id
         row :name
         row :latlong
-        row :flood_level_status do 
-          status_tag barangay.flood_level_status
-        end
+        # row :flood_level_status do 
+        #   status_tag barangay.flood_level_status
+        # end
         row :population
-        row :estimated_elevation
+        row :estimated_elevation do 
+          "#{barangay.estimated_elevation || 0} Meters (#{(barangay.estimated_elevation || 0)* 3.28084} feet)"
+        end
         row :created_at 
         row :updated_at 
       end
     end
-    panel "Coastal Areas" do
-      table_for barangay.coastal_areas do
-        column :name
-        column :latlong 
-        column :created_at 
-      end
-    end
-    panel "Flood Level History" do
-      table_for barangay.water_levels.order(created_at: :desc) do
-        column :status do |i|
-          status_tag i.status
-        end
-        column :created_at 
-      end
-    end
+    # panel "Coastal Areas" do
+    #   table_for barangay.coastal_areas do
+    #     column :name
+    #     column :latlong 
+    #     column :created_at 
+    #   end
+    # end
+    # panel "Flood Level History" do
+    #   table_for barangay.water_levels.order(created_at: :desc) do
+    #     column :status do |i|
+    #       status_tag i.status
+    #     end
+    #     column :created_at 
+    #   end
+    # end
   end
 end

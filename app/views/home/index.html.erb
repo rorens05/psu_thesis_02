@@ -1,2 +1,12 @@
-<h3>Dashboard</h3>
-<%= Rails.env %>
+<%= render 'navbar' %>
+<div class="hero">
+  <img src="/images/banner.jpg"/>
+  <div class="container hero-content">
+    <h1>GEOGRAPHIC INFORMATION SYSTEM FOR FLOOD AND TSUNAMI PRONE AREAS IN LINGAYEN</h1>
+    <p>GIS Lingayen is a website to keep track of risk areas in Lingayen, Pangasinan for Flood, Tsunami and Storm Surge prone areas. This website also can show the locations of different Evacuations site in Lingayen.</p>
+    <div class="dots">
+    </div>
+  </div>
+</div>
+<%= render 'map' %>
+<%= render 'footer' %>

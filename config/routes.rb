@@ -56,6 +56,11 @@ Rails.application.routes.draw do
   devise_for :users
   get 'users/:id' => 'users#show'
   get 'home/index'
+  get '/reports' => 'home#reports'
+  get '/evacuation_areas' => 'home#evacuation_areas'
+  get '/barangays' => 'home#barangays'
+  get '/contact_us' => 'home#contact_us'
+  get '/about_us' => 'home#about_us'
   root 'home#index'
 
   get 'confirm_email/:token', to: 'email_handler#confirm_email'

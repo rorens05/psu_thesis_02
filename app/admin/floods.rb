@@ -1,7 +1,7 @@
 ActiveAdmin.register Flood do
   menu priority: 2.5, parent: 'Risk Areas'
 
-  permit_params :name, :district, :classification, :barangay_id, :zone, :number_of_hhs, :latlong, :risk_level
+  permit_params :name, :district, :classification, :barangay_id, :zone, :number_of_hhs, :latlong, :risk_level, :coordinates
 
   filter :district, as: :select
   filter :classification, as: :select
@@ -32,6 +32,7 @@ ActiveAdmin.register Flood do
         row :classification
         row :zone
         row :number_of_hhs
+        row :coordinates
         row :risk_level  do |i|
           status_tag i.risk_level
         end

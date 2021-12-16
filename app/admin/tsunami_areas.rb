@@ -1,7 +1,7 @@
 ActiveAdmin.register TsunamiArea do
   menu priority: 2, parent: 'Risk Areas'
 
-  permit_params :barangay_id, :latlong, :risk_level, :district, :classification, :number_of_hhs
+  permit_params :barangay_id, :latlong, :risk_level, :district, :classification, :number_of_hhs, :coordinates
   
   filter :name
   filter :risk_level, as: :select
@@ -28,6 +28,7 @@ ActiveAdmin.register TsunamiArea do
         row :district
         row :classification
         row :number_of_hhs
+        row :coordinates
         row :risk_level  do |i|
           status_tag i.risk_level
         end

@@ -1,0 +1,22 @@
+<div class="custom-navbar">
+  <div class="navbar-top">
+    <div class="container">
+      <img src="/images/gis-logo.png" alt="" />
+    </div>
+  </div>
+  <div class="container">
+    <div class="navbar-main">
+      <div class="navbar-items">
+        <a href="/" class="<%= action_name == "index" ? "active" : "" %>">Home</a>
+        <a href="/reports" class="<%= action_name == "reports" ? "active" : "" %>">Reports</a>
+        <a href="/evacuation_areas" class="<%= action_name == "evacuation_areas" ? "active" : "" %>">Evacuation Areas</a>
+        <a href="/barangays" class="<%= action_name == "barangays" ? "active" : "" %>">Barangays</a>
+        <a href="/contact_us" class="<%= action_name == "contact_us" ? "active" : "" %>">Contacts</a>
+        <a href="/about_us" class="<%= action_name == "about_us" ? "active" : "" %>">About us</a>
+      </div>
+      <div class="contact-navbar">
+        <span><i class="fas fa-phone-alt"></i> 075-653-7515</span>
+      </div>
+    </div>
+  </div>
+</div>

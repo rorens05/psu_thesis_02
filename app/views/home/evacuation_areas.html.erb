@@ -1,0 +1,33 @@
+<%= render 'navbar' %>
+<div class="container-fluid">
+  <h2 class="mt-5 text-center font-weight-bold">Evacuation Areas</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Barangay</th>
+        <th>Total Evacuation Center</th>
+        <th>Exact Location</th>
+        <th>Proximity</th>
+        <th>Floor area</th>
+        <th>Number of evacuees</th>
+        <th>Other Character</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% EvacuationArea.all.each do |evac_area| %>
+        <tr>
+          <td><%= evac_area.name %></td>
+          <td><%= evac_area.barangay.name %></td>
+          <td><%= evac_area.total_evacuation_center %></td>
+          <td><%= evac_area.exact_location %></td>
+          <td><%= evac_area.proximity %></td>
+          <td><%= evac_area.floor_area %></td>
+          <td><%= evac_area.no_of_evacuees %></td>
+          <td><%= evac_area.other_character %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= render 'footer' %>

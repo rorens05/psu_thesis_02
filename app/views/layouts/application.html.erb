@@ -4,7 +4,7 @@
     <title>Rorens</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <!-- <link rel="icon" href="/images/logo.png"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -17,6 +17,6 @@
     <%= yield %>
   </body>
   <% if Rails.env.development? %>
-    <%= console %>
+    <%# console %>
   <% end %>
 </html>

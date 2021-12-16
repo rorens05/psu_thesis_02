@@ -1,7 +1,7 @@
 ActiveAdmin.register StormSurge do
   menu priority: 2.5, parent: 'Risk Areas'
 
-  permit_params :name, :district, :classification, :barangay_id, :zone, :no_of_affected_household, :latlong, :risk_level
+  permit_params :name, :district, :classification, :barangay_id, :zone, :no_of_affected_household, :latlong, :risk_level, :coordinates
   
   filter :district, as: :select
   filter :classification, as: :select
@@ -32,6 +32,7 @@ ActiveAdmin.register StormSurge do
         row :classification
         row :zone
         row :no_of_affected_household
+        row :coordinates
         row :risk_level  do |i|
           status_tag i.risk_level
         end

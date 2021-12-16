@@ -1,0 +1,23 @@
+<%= render 'navbar' %>
+<div class="container">
+  <h2 class="mt-5 text-center font-weight-bold">Barangay</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Population</th>
+        <th>Estimated estimated_elevation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Barangay.all.each do |barangay| %>
+        <tr>
+          <td><%= barangay.name %></td>
+          <td><%= barangay.population %></td>
+          <td><%= barangay.estimated_elevation %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= render 'footer' %>

@@ -1,0 +1,139 @@
+<%= render 'navbar' %>
+<div class="container">
+  <h2 class="mt-5 text-center font-weight-bold">HOUSEHOLD SUSEPTABLE TO TSUNAMI</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>District</th>
+        <th>Classification</th>
+        <th>Barangays</th>
+        <th>Number of Households</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% TsunamiArea.districts.keys.each do |district| %>
+        <tr>
+          <% urban_count = TsunamiArea.where(district: district, classification: "Urban").count == 0 ? 1 :  TsunamiArea.where(district: district, classification: "Urban").count %>
+          <% rural_count = TsunamiArea.where(district: district, classification: "Rural").count == 0 ? 1 :  TsunamiArea.where(district: district, classification: "Rural").count %>
+          <% rowspan = (urban_count + rural_count) || 1 %>
+          <td class="<%= district.downcase %>" rowspan="<%= rowspan + 1 %>"><%= district %></td>
+          <td rowspan="<%= urban_count %>">Urban</td>
+          <% TsunamiArea.where(district: district, classification: "Urban").limit(1).each do |tsunami_area| %>
+            <td><%= tsunami_area.barangay.name %></td>
+            <td class="<%= tsunami_area.risk_level.downcase.to_sym %>"><%= tsunami_area.number_of_hhs %></td>
+          <% end %>
+          <% if TsunamiArea.where(district: district, classification: "Urban").limit(1).count == 0 %>
+            <td></td>
+            <td></td>
+          <% end %>
+        </tr>
+        <% TsunamiArea.where(district: district, classification: "Urban").drop(1).each do |tsunami_area| %>
+          <tr>
+            <td><%= tsunami_area.barangay.name %></td>
+            <td class="<%= tsunami_area.risk_level.downcase.to_sym %>"><%= tsunami_area.number_of_hhs %></td>
+          </tr>
+        <% end %>
+        <td rowspan="<%= rural_count + 1%>">Rural</td>
+        <% TsunamiArea.where(district: district, classification: "Rural").each do |tsunami_area| %>
+          <tr>
+            <td><%= tsunami_area.barangay.name %></td>
+            <td class="<%= tsunami_area.risk_level.downcase.to_sym %>"><%= tsunami_area.number_of_hhs %></td>
+          </tr>
+        <% end %>
+        <% if TsunamiArea.where(district: district, classification: "Rural").limit(1).count == 0 %>
+          <td></td>
+          <td></td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="container">
+  <h2 class="mt-5 text-center font-weight-bold">HOUSEHOLD SUSEPTABLE TO FLOOD</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>District</th>
+        <th>Classification</th>
+        <th>Barangays</th>
+        <th>Zone/Purok/Sitio</th>
+        <th>Number of Households</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Flood.districts.keys.each do |district| %>
+        <% urban_rowspan = Flood.where(district: district, classification: "Urban").count + 1 %>
+        <% rural_rowspan = Flood.where(district: district, classification: "Rural").count + 1 %>
+        <% district_rowspan = 1 + urban_rowspan + rural_rowspan %>
+        <tr>
+          <td rowspan="<%= district_rowspan %>" class="<%= district.downcase %>"><%= district %></td>
+        </tr>
+        <tr>
+          <td rowspan="<%= urban_rowspan %>">Urban</td>
+        </tr>
+        <% Flood.where(district: district, classification: "Urban").order(:barangay_id).each do |flood| %>
+          <tr>
+            <td><%= flood.barangay.name %></td>
+            <td><%= flood.zone %></td>
+            <td class="<%= flood.risk_level.downcase.to_sym %>"><%= flood.number_of_hhs %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <td rowspan="<%= rural_rowspan %>">Rural</td>
+        </tr>
+        <% Flood.where(district: district, classification: "Rural").order(:barangay_id).each do |flood| %>
+          <tr>
+            <td><%= flood.barangay.name %></td>
+            <td><%= flood.zone %></td>
+            <td class="<%= flood.risk_level.downcase.to_sym %>"><%= flood.number_of_hhs %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="container">
+  <h2 class="mt-5 text-center font-weight-bold">HOUSEHOLD SUSEPTABLE TO STORM SURGE</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>District</th>
+        <th>Classification</th>
+        <th>Barangays</th>
+        <th>Zone/Purok/Sitio</th>
+        <th>Number of Households</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% StormSurge.districts.keys.each do |district| %>
+        <% urban_rowspan = StormSurge.where(district: district, classification: "Urban").count + 1 %>
+        <% rural_rowspan = StormSurge.where(district: district, classification: "Rural").count + 1 %>
+        <% district_rowspan = 1 + urban_rowspan + rural_rowspan %>
+        <tr>
+          <td rowspan="<%= district_rowspan %>" class="<%= district.downcase %>"><%= district %></td>
+        </tr>
+        <tr>
+          <td rowspan="<%= urban_rowspan %>">Urban</td>
+        </tr>
+        <% StormSurge.where(district: district, classification: "Urban").order(:barangay_id).each do |storm_surge| %>
+          <tr>
+            <td><%= storm_surge.barangay.name %></td>
+            <td><%= storm_surge.zone %></td>
+            <td class="<%= storm_surge.risk_level.downcase.to_sym %>"><%= storm_surge.no_of_affected_household %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <td rowspan="<%= rural_rowspan %>">Rural</td>
+        </tr>
+        <% StormSurge.where(district: district, classification: "Rural").order(:barangay_id).each do |storm_surge| %>
+          <tr>
+            <td><%= storm_surge.barangay.name %></td>
+            <td><%= storm_surge.zone %></td>
+            <td class="<%= storm_surge.risk_level.downcase.to_sym %>"><%= storm_surge.no_of_affected_household %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= render 'footer' %>
