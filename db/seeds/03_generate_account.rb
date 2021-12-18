@@ -18,7 +18,7 @@ cimb = Bank.create(
   description: "CIMB Bank Philippines Inc. is an entity regulated by the Bangko Sentral ng Pilipinas (Bangko Sentral).",
 )
 
-user = User.find_by(email: 'rorens05@gmail.com')
+user = User.find_by(email: 'GID05@gmail.com')
 
 Account.create(
   bank: gcash,
