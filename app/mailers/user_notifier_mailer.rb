@@ -2,7 +2,7 @@ class UserNotifierMailer < ApplicationMailer
   default from: 'no-reply@mbc.com'
   def send_signup_email(user)
     @user = user
-    mail(to: 'GID05@gmail.com',
+    mail(to: 'GIS05@gmail.com',
          subject: 'Thanks for signing up for our amazing app')
   end
 
