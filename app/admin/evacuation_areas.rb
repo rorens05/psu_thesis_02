@@ -22,10 +22,26 @@ ActiveAdmin.register EvacuationArea do
     column "Name ", :name
     column "Location ", :exact_location
     column :proximity
-    column "Floor Area (sq. meter)",:floor_area
+    column "Floor Area (sq. meter)", :floor_area
     column :no_of_evacuees
     column :other_character
     column "Last updated at", :updated_at, sortable: :updated_at
     actions
   end
+
+  form do |f|
+    f.inputs do
+      f.input :name
+      f.input :latlong
+      f.input :barangay_id
+      f.input :total_evacuation_center
+      f.input :exact_location
+      f.input :proximity, input_html: {rows: 1}
+      f.input :floor_area, input_html: {rows: 1}
+      f.input :no_of_evacuees
+      f.input :other_character
+    end
+    f.actions
+  end
+    
 end

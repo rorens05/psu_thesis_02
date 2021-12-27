@@ -334,6 +334,10 @@ select {
     display: flex;
     flex-direction: row;
     align-items: center;
+    img {
+      width: 48px !important;
+      height: 48px;
+    }
     .navbar-items {
       flex: 1;
       padding: 0 12px;

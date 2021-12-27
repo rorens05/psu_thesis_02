@@ -18,7 +18,7 @@
       <% EvacuationArea.all.each do |evac_area| %>
         <tr>
           <td><%= evac_area.name %></td>
-          <td><%= evac_area.barangay.name %></td>
+          <td><%= evac_area.barangay&.name %></td>
           <td><%= evac_area.total_evacuation_center %></td>
           <td><%= evac_area.exact_location %></td>
           <td><%= evac_area.proximity %></td>
