@@ -293,7 +293,7 @@ const displayData = () => {
             imageUrl = "/images/storm_surge-medium-risk.png";
             break;
           case "HIGH RISK":
-            imageUrl = "/images/storm_surge-high-risk.png";
+            imageUrl = "/images/storm_surge-high-risk.png.png";
             break;
         }
         const icon = {
