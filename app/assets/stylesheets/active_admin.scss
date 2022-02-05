@@ -340,7 +340,7 @@ select {
     }
     .navbar-items {
       flex: 1;
-      padding: 0 12px;
+      padding: 0px;
       background-color: $skinActiveColor !important;
       a {
         display: inline-block;
@@ -527,5 +527,35 @@ table {
   }
 
   .admin-users {
+  }
+}
+
+.legend-container {
+  margin: 40px 0;
+  background-color: white;
+  padding: 12px;
+  width: 250px;
+  .legend-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 12px;
+    p {
+      margin: 0;
+      margin-right: 12px;
+    }
+    .legend-icon {
+      img {
+        width: 24px;
+        height: 24px;
+        margin-right: 12px;
+      }
+    }
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 12px;
+    }
   }
 }

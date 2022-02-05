@@ -46,13 +46,13 @@ const showActiveFilter = () => {
   }else{
     tsunamiFilter.classList.remove("active")
   }
-  
+
   if (floods_visible) {
     floodFilter.classList.add("active")
   }else{
     floodFilter.classList.remove("active")
   }
-  
+
   if (evacuations_visible) {
     evacuationFilter.classList.add("active")
   }else{
@@ -74,35 +74,40 @@ const initFilters = () => {
   const stormSurgeFilter = document.getElementById("storm-surge-filter");
   const evacuationFilter = document.getElementById("evacuation-filter");
 
-  barangayFilter.addEventListener("click", () => {
+  barangayFilter.addEventListener("click", (e) => {
+    e.preventDefault();
     resetMap()
     barangays_visible = !barangays_visible;
     showActiveFilter()
     displayData();
   });
 
-  tsunamiFilter.addEventListener("click", () => {
+  tsunamiFilter.addEventListener("click", (e) => {
+    e.preventDefault();
     resetMap()
     tsunamis_visible = !tsunamis_visible;
     showActiveFilter()
     displayData();
   });
 
-  floodFilter.addEventListener("click", () => {
+  floodFilter.addEventListener("click", (e) => {
+    e.preventDefault();
     resetMap()
     floods_visible = !floods_visible;
     showActiveFilter()
     displayData();
   });
 
-  stormSurgeFilter.addEventListener("click", () => {
+  stormSurgeFilter.addEventListener("click", (e) => {
+    e.preventDefault();
     resetMap()
     storm_surges_visible = !storm_surges_visible;
     showActiveFilter()
     displayData();
   });
 
-  evacuationFilter.addEventListener("click", () => {
+  evacuationFilter.addEventListener("click", (e) => {
+    e.preventDefault();
     resetMap()
     evacuations_visible = !evacuations_visible;
     showActiveFilter()
@@ -249,9 +254,9 @@ const displayData = () => {
           scaledSize: new google.maps.Size(36, 36),
         };
         displayMarker(item.latlong, content, icon);
-        
+
       }
-  
+
       if(item.coordinates != null){
         displayPolygon(coordinateParser(item.coordinates), "#135998")
       }
@@ -331,7 +336,7 @@ const displayMarker = (latlong, content, icon) => {
 
 const displayPolygon = (coordinates, color = "#FF0000") => {
   console.log({coordinates});
-  
+
   const bermudaTriangle = new google.maps.Polygon({
     paths: coordinates,
     strokeColor: color,
