@@ -1,0 +1,47 @@
+@media print {
+  .print-hidden{
+    display: none !important;
+  }
+
+  #active_admin_content{
+    border-top: none !important;
+    margin-top: none !important;
+  }
+
+  .header, .title_bar{
+    display: none
+  }
+
+  table{
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  table td, table th{
+    border: 1px solid black;
+  }
+
+  td {
+    border: 1px solid gray;
+  }
+  .central {
+    background-color: #ff5b5b !important;
+  }
+  .southern {
+    background-color: #92d050 !important;
+  }
+  .western {
+    background-color: #f9b883 !important;
+  }
+
+  .low.risk {
+    background-color: #fce4d6 !important;
+  }
+  .medium.risk {
+    background-color: #ffc000 !important;
+  }
+  .high.risk {
+    background-color: #ff0000 !important;
+  }
+
+}

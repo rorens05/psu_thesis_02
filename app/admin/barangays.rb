@@ -18,6 +18,17 @@ ActiveAdmin.register Barangay do
     actions
   end 
 
+  form do |f|
+    f.inputs do 
+      f.semantic_errors *f.object.errors.keys
+      f.input :name
+      f.input :latlong
+      f.input :population
+      f.input :estimated_elevation
+    end
+    f.actions
+  end
+
   show do
     panel barangay.name do 
       attributes_table_for barangay do
