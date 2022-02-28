@@ -66,7 +66,7 @@
       <a href="#map-container" id="medium-filter" class="map-filters active">MEDIUM RISK</a>
       <a href="#map-container" id="high-filter" class="map-filters active">HIGH RISK</a>
     </div>
-    <a href="#map-container" id="show-routes" class="map-filters active">SHOW ROUTES</a>
+    <a href="#map-container" id="show-routes" class="map-filters active">SHOW NEXT ROUTE TO EVACUATION</a>
     <div id="map">
       <h1>Loading...</h1>
     </div>
@@ -96,11 +96,14 @@
       var directionsService = null;
       var directionsDisplay = null;
       
+      var currentRouteIndex = null
+      
       function initMap() {
         initFilters()
         resetMap()
         initShowRoutes()
       }
+      
       const initShowRoutes = () => {
         const routeButton = document.getElementById("show-routes");
         routeButton.addEventListener('click', (e) => {
@@ -145,30 +148,33 @@
       }
       
       const showRoutes = async () => {
-      
-         directionsService = new google.maps.DirectionsService();
-         directionsDisplay = new google.maps.DirectionsRenderer();
-      
-        for (i = 0; i < evacuations.length; i++) {
-          let item = evacuations[i]
-          setTimeout(() => {
-             var request = {
-                travelMode: google.maps.TravelMode.DRIVING
-              };
-              directionsDisplay.setMap(map);
-              directionsDisplay.setOptions( { suppressMarkers: true } );
-              console.log("Showing routes...")
-              console.log({evacuations})
-      
-              request.origin =  new google.maps.LatLng(latitude, longitude)
-              request.destination =  new google.maps.LatLng(item.latlong.split(',')[0], item.latlong.split(',')[1])
-              directionsService.route(request, function(result, status) {
-                if (status == google.maps.DirectionsStatus.OK) {
-                  directionsDisplay.setDirections(result);
-                }
-              });
-          }, 1000);
+        if(evacuations.length == 0){
+          alert("No evacuation areas found")
+          return
         }
+        if(currentRouteIndex == null){
+          currentRouteIndex = 0
+        }
+        directionsService = new google.maps.DirectionsService();
+        directionsDisplay = new google.maps.DirectionsRenderer();
+      
+        let item = evacuations[currentRouteIndex]
+        var request = {
+          travelMode: google.maps.TravelMode.DRIVING
+        };
+        directionsDisplay.setMap(map);
+        directionsDisplay.setOptions( { suppressMarkers: true } );
+        console.log("Showing routes...")
+        console.log({evacuations})
+      
+        request.origin =  new google.maps.LatLng(latitude, longitude)
+        request.destination =  new google.maps.LatLng(item.latlong.split(',')[0], item.latlong.split(',')[1])
+        directionsService.route(request, function(result, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(result);
+          }
+        });
+        currentRouteIndex = (currentRouteIndex + 1) % evacuations.length
       }
       
       function resetMap() {
