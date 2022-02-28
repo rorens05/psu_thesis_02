@@ -66,6 +66,7 @@
       <a href="#map-container" id="medium-filter" class="map-filters active">MEDIUM RISK</a>
       <a href="#map-container" id="high-filter" class="map-filters active">HIGH RISK</a>
     </div>
+    <a href="#map-container" id="show-routes" class="map-filters active">SHOW ROUTES</a>
     <div id="map">
       <h1>Loading...</h1>
     </div>
@@ -88,20 +89,97 @@
       let medium_visible = true;
       let high_visible = true;
       
-      function initMap() {
+      let latitude = null
+      let longitude = null
+      currentLocationMarker = null
       
+      var directionsService = null;
+      var directionsDisplay = null;
+      
+      function initMap() {
         initFilters()
         resetMap()
+        initShowRoutes()
+      }
+      const initShowRoutes = () => {
+        const routeButton = document.getElementById("show-routes");
+        routeButton.addEventListener('click', (e) => {
+          e.preventDefault()
+          showRoutes()
+        })
+      }
+      
+      function getLocation() {
+        console.log("Getting location...")
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          alert("Cannot get your location")
+          console.log({
+            error: "Geolocation is not supported by this browser."
+          });
+        }
+      }
+      
+      function showPosition(position) {
+        console.log("Location found!")
+        if(latitude == null ){
+          latitude = position.coords.latitude;
+          longitude = position.coords.longitude;
+        }
+        const content = "Current location"
+        const icon = {
+          url: "/images/current_location_icon.png",
+          scaledSize: new google.maps.Size(36, 36),
+        };
+      
+        currentLocationMarker = displayMarker(`${latitude}, ${longitude}`, content, icon, true);
+        map.setCenter(new google.maps.LatLng(latitude, longitude));
+        map.setZoom(10);
+        google.maps.event.addListener(currentLocationMarker, 'dragend', function()
+        {
+          latitude = currentLocationMarker.getPosition().lat()
+          longitude = currentLocationMarker.getPosition().lng()
+          console.log(`${latitude}, ${longitude}`)
+        });
+      }
+      
+      const showRoutes = async () => {
+      
+         directionsService = new google.maps.DirectionsService();
+         directionsDisplay = new google.maps.DirectionsRenderer();
+      
+        for (i = 0; i < evacuations.length; i++) {
+          let item = evacuations[i]
+          setTimeout(() => {
+             var request = {
+                travelMode: google.maps.TravelMode.DRIVING
+              };
+              directionsDisplay.setMap(map);
+              directionsDisplay.setOptions( { suppressMarkers: true } );
+              console.log("Showing routes...")
+              console.log({evacuations})
+      
+              request.origin =  new google.maps.LatLng(latitude, longitude)
+              request.destination =  new google.maps.LatLng(item.latlong.split(',')[0], item.latlong.split(',')[1])
+              directionsService.route(request, function(result, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                  directionsDisplay.setDirections(result);
+                }
+              });
+          }, 1000);
+        }
       }
       
       function resetMap() {
         const mapContainer = document.getElementById("map");
         if (mapContainer) {
           map = new google.maps.Map(mapContainer, {
-            center: { lat: 16.019097656537834, lng: 120.23156633657322 },
+            center: { lat: latitude || 16.019097656537834, lng: longitude || 120.23156633657322 },
             zoom: 13,
           });
           initMapData();
+          getLocation()
         }
       }
       
@@ -439,7 +517,7 @@
         }
       };
       
-      const displayMarker = (latlong, content, icon) => {
+      const displayMarker = (latlong, content, icon, draggable = false) => {
         const position = {
           lat: parseFloat(latlong.split(",")[0]),
           lng: parseFloat(latlong.split(",")[1]),
@@ -448,14 +526,15 @@
           position,
           map,
           icon,
+          draggable
         });
         const infoWindow = new google.maps.InfoWindow();
-      
         marker.addListener("click", () => {
           infoWindow.close();
           infoWindow.setContent(content);
           infoWindow.open(marker.getMap(), marker);
         });
+        return marker
       };
       
       
