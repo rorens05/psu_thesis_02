@@ -66,6 +66,7 @@
       <a href="#map-container" id="medium-filter" class="map-filters active">MEDIUM RISK</a>
       <a href="#map-container" id="high-filter" class="map-filters active">HIGH RISK</a>
     </div>
+    <a href="#map-container" id="show-location" class="map-filters active">GET CURRENT LOCATION</a>
     <a href="#map-container" id="show-routes" class="map-filters active">SHOW NEXT ROUTE TO EVACUATION</a>
     <div id="map">
       <h1>Loading...</h1>
@@ -109,6 +110,11 @@
         routeButton.addEventListener('click', (e) => {
           e.preventDefault()
           showRoutes()
+        })
+        const currentLocationButton = document.getElementById("show-location");
+        currentLocationButton.addEventListener('click', (e) => {
+          console.log("current location")
+          getLocation()
         })
       }
       
