@@ -520,15 +520,16 @@
         }
       
         if(storm_surges_visible){
-          if(item.risk_level == "LOW RISK"){
-            if(!low_visible) return
-          }else if(item.risk_level == "MEDIUM RISK"){
-            if(!medium_visible) return
-          }else if(item.risk_level == "HIGH RISK"){
-            if(!high_visible) return
-          }
+      
           storm_surges.map((item) => {
             const content = `Storm Surge area | ${item.risk_level}`;
+            if(item.risk_level == "LOW RISK"){
+              if(!low_visible) return
+            }else if(item.risk_level == "MEDIUM RISK"){
+              if(!medium_visible) return
+            }else if(item.risk_level == "HIGH RISK"){
+              if(!high_visible) return
+            }
             if (item.latlong) {
               let imageUrl = "/images/storm_surge-low-risk.png";
               switch (item.risk_level) {
