@@ -454,6 +454,15 @@
         if(tsunamis_visible){
           tsunamis.map((item) => {
             const content = `Tsunami area | ${item.risk_level}`;
+      
+            if(item.risk_level == "LOW RISK"){
+              if(!low_visible) return
+            }else if(item.risk_level == "MEDIUM RISK"){
+              if(!medium_visible) return
+            }else if(item.risk_level == "HIGH RISK"){
+              if(!high_visible) return
+            }
+      
             if (item.latlong) {
               let imageUrl = "/images/Tsunami-Low.png";
               switch (item.risk_level) {
@@ -480,6 +489,13 @@
       
         if(floods_visible){
           floods.map((item) => {
+            if(item.risk_level == "LOW RISK"){
+              if(!low_visible) return
+            }else if(item.risk_level == "MEDIUM RISK"){
+              if(!medium_visible) return
+            }else if(item.risk_level == "HIGH RISK"){
+              if(!high_visible) return
+            }
             const content = `Flood area | ${item.risk_level}`;
             if (item.latlong) {
               let imageUrl = "/images/flood-low-risk.png";
@@ -504,6 +520,13 @@
         }
       
         if(storm_surges_visible){
+          if(item.risk_level == "LOW RISK"){
+            if(!low_visible) return
+          }else if(item.risk_level == "MEDIUM RISK"){
+            if(!medium_visible) return
+          }else if(item.risk_level == "HIGH RISK"){
+            if(!high_visible) return
+          }
           storm_surges.map((item) => {
             const content = `Storm Surge area | ${item.risk_level}`;
             if (item.latlong) {
