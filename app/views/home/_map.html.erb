@@ -54,18 +54,21 @@
         <div class="legend-color" style="background-color: red;"></div>
       </div>
     </div>
+    <h3 class="mt-3 mb-1">RISK TYPES</h3>
     <div>
       <a href="#map-container" id="barangay-filter" class="map-filters active">BARANGAY</a>
-      <a href="#map-container" id="evacuation-filter" class="map-filters active">EVACUATION AREA</a>
       <a href="#map-container" id="tsunami-filter" class="map-filters active">TSUNAMI</a>
       <a href="#map-container" id="flood-filter" class="map-filters active">FLOODS</a>
       <a href="#map-container" id="storm-surge-filter" class="map-filters active">STORM SURGES</a>
     </div>
+    <h3 class="mt-3 mb-1">RISK LEVELS</h3>
     <div>
       <a href="#map-container" id="low-filter" class="map-filters active">LOW RISK</a>
       <a href="#map-container" id="medium-filter" class="map-filters active">MEDIUM RISK</a>
       <a href="#map-container" id="high-filter" class="map-filters active">HIGH RISK</a>
     </div>
+    <h3 class="mt-3 mb-1">ACTIONS</h3>
+    <a href="#map-container" id="evacuation-filter" class="map-filters active">EVACUATION AREA</a>
     <a href="#map-container" id="show-location" class="map-filters active">GET CURRENT LOCATION</a>
     <a href="#map-container" id="show-routes" class="map-filters active">SHOW NEXT ROUTE TO EVACUATION</a>
     <div id="map">
@@ -80,7 +83,7 @@
       let evacuations = [];
       let floods = [];
       let storm_surges = [];
-      
+
       let barangays_visible = true;
       let tsunamis_visible = true;
       let evacuations_visible = true;
@@ -89,22 +92,22 @@
       let low_visible = true;
       let medium_visible = true;
       let high_visible = true;
-      
+
       let latitude = null
       let longitude = null
       currentLocationMarker = null
-      
+
       var directionsService = null;
       var directionsDisplay = null;
-      
+
       var currentRouteIndex = null
-      
+
       function initMap() {
         initFilters()
         resetMap()
         initShowRoutes()
       }
-      
+
       const initShowRoutes = () => {
         const routeButton = document.getElementById("show-routes");
         routeButton.addEventListener('click', (e) => {
@@ -117,7 +120,7 @@
           getLocation()
         })
       }
-      
+
       function getLocation() {
         console.log("Getting location...")
         if (navigator.geolocation) {
@@ -129,7 +132,7 @@
           });
         }
       }
-      
+
       function showPosition(position) {
         console.log("Location found!")
         if(latitude == null ){
@@ -141,7 +144,7 @@
           url: "/images/current_location_icon.png",
           scaledSize: new google.maps.Size(36, 36),
         };
-      
+
         currentLocationMarker = displayMarker(`${latitude}, ${longitude}`, content, icon, true);
         map.setCenter(new google.maps.LatLng(latitude, longitude));
         map.setZoom(10);
@@ -152,7 +155,7 @@
           console.log(`${latitude}, ${longitude}`)
         });
       }
-      
+
       const showRoutes = async () => {
         if(evacuations.length == 0){
           alert("No evacuation areas found")
@@ -163,7 +166,7 @@
         }
         directionsService = new google.maps.DirectionsService();
         directionsDisplay = new google.maps.DirectionsRenderer();
-      
+
         let item = evacuations[currentRouteIndex]
         var request = {
           travelMode: google.maps.TravelMode.DRIVING
@@ -172,7 +175,7 @@
         directionsDisplay.setOptions( { suppressMarkers: true } );
         console.log("Showing routes...")
         console.log({evacuations})
-      
+
         request.origin =  new google.maps.LatLng(latitude, longitude)
         request.destination =  new google.maps.LatLng(item.latlong.split(',')[0], item.latlong.split(',')[1])
         directionsService.route(request, function(result, status) {
@@ -182,7 +185,7 @@
         });
         currentRouteIndex = (currentRouteIndex + 1) % evacuations.length
       }
-      
+
       function resetMap() {
         const mapContainer = document.getElementById("map");
         if (mapContainer) {
@@ -194,7 +197,7 @@
           getLocation()
         }
       }
-      
+
       const showActiveFilter = () => {
         const barangayFilter = document.getElementById("barangay-filter");
         const tsunamiFilter = document.getElementById("tsunami-filter");
@@ -204,57 +207,57 @@
         const lowFilter = document.getElementById("low-filter");
         const mediumSurgeFilter = document.getElementById("medium-filter");
         const highFilter = document.getElementById("high-filter");
-      
+
         if (low_visible) {
           lowFilter.classList.add("active")
         }else{
           lowFilter.classList.remove("active")
         }
-      
+
         if (medium_visible) {
           mediumSurgeFilter.classList.add("active")
         }else{
           mediumSurgeFilter.classList.remove("active")
         }
-      
+
         if (high_visible) {
           highFilter.classList.add("active")
         }else{
           highFilter.classList.remove("active")
         }
-      
+
         if (barangays_visible) {
           barangayFilter.classList.add("active")
         }else{
           barangayFilter.classList.remove("active")
         }
-      
+
         if (tsunamis_visible) {
           tsunamiFilter.classList.add("active")
         }else{
           tsunamiFilter.classList.remove("active")
         }
-      
+
         if (floods_visible) {
           floodFilter.classList.add("active")
         }else{
           floodFilter.classList.remove("active")
         }
-      
+
         if (evacuations_visible) {
           evacuationFilter.classList.add("active")
         }else{
           evacuationFilter.classList.remove("active")
         }
-      
+
         if (storm_surges_visible) {
           stormSurgeFilter.classList.add("active")
         }else{
           stormSurgeFilter.classList.remove("active")
         }
-      
+
       }
-      
+
       const initFilters = () => {
         const barangayFilter = document.getElementById("barangay-filter");
         const tsunamiFilter = document.getElementById("tsunami-filter");
@@ -264,7 +267,7 @@
         const lowFilter = document.getElementById("low-filter");
         const mediumSurgeFilter = document.getElementById("medium-filter");
         const highFilter = document.getElementById("high-filter");
-      
+
         lowFilter.addEventListener("click", (e) => {
           e.preventDefault();
           resetMap()
@@ -272,7 +275,7 @@
           showActiveFilter()
           displayData();
         });
-      
+
         mediumSurgeFilter.addEventListener("click", (e) => {
           e.preventDefault();
           resetMap()
@@ -280,7 +283,7 @@
           showActiveFilter()
           displayData();
         });
-      
+
         highFilter.addEventListener("click", (e) => {
           e.preventDefault();
           resetMap()
@@ -288,7 +291,7 @@
           showActiveFilter()
           displayData();
         });
-      
+
         barangayFilter.addEventListener("click", (e) => {
           e.preventDefault();
           resetMap()
@@ -296,7 +299,7 @@
           showActiveFilter()
           displayData();
         });
-      
+
         tsunamiFilter.addEventListener("click", (e) => {
           e.preventDefault();
           resetMap()
@@ -304,7 +307,7 @@
           showActiveFilter()
           displayData();
         });
-      
+
         floodFilter.addEventListener("click", (e) => {
           e.preventDefault();
           resetMap()
@@ -312,7 +315,7 @@
           showActiveFilter()
           displayData();
         });
-      
+
         stormSurgeFilter.addEventListener("click", (e) => {
           e.preventDefault();
           resetMap()
@@ -320,7 +323,7 @@
           showActiveFilter()
           displayData();
         });
-      
+
         evacuationFilter.addEventListener("click", (e) => {
           e.preventDefault();
           resetMap()
@@ -329,8 +332,8 @@
           displayData();
         });
       }
-      
-      
+
+
       const initMapData = async () => {
         await fetchAllBarangays();
         await fetchAllTsunamis();
@@ -339,7 +342,7 @@
         await fetchAllStormSurges();
         await displayData();
       };
-      
+
       const fetchAllBarangays = () => {
         console.log("fetching barangays");
         return fetch("/api/v2/map_data/barangay")
@@ -347,7 +350,7 @@
             console.log({ res });
             return res.json();
           })
-      
+
           .then((res) => {
             console.log("displaying barangay", res);
             barangays = res;
@@ -356,7 +359,7 @@
             console.log({ err });
           });
       };
-      
+
       const fetchAllTsunamis = () => {
         console.log("fetching tsunamis");
         return fetch("/api/v2/map_data/tsunami")
@@ -364,7 +367,7 @@
             console.log({ res });
             return res.json();
           })
-      
+
           .then((res) => {
             console.log("displaying tsunami", res);
             tsunamis = res;
@@ -373,7 +376,7 @@
             console.log({ err });
           });
       };
-      
+
       const fetchAllFloods = () => {
         console.log("fetching floods");
         return fetch("/api/v2/map_data/flood")
@@ -381,7 +384,7 @@
             console.log({ res });
             return res.json();
           })
-      
+
           .then((res) => {
             console.log("displaying flood", res);
             floods = res;
@@ -390,7 +393,7 @@
             console.log({ err });
           });
       };
-      
+
       const fetchAllStormSurges = () => {
         console.log("fetching storm_surges");
         return fetch("/api/v2/map_data/storm_surge")
@@ -398,7 +401,7 @@
             console.log({ res });
             return res.json();
           })
-      
+
           .then((res) => {
             console.log("displaying storm_surge", res);
             storm_surges = res;
@@ -407,7 +410,7 @@
             console.log({ err });
           });
       };
-      
+
       const fetchAllEvacuation = () => {
         console.log("fetching evacuations");
         return fetch("/api/v2/map_data/evacuation")
@@ -415,7 +418,7 @@
             console.log({ res });
             return res.json();
           })
-      
+
           .then((res) => {
             console.log("displaying evacuation", res);
             evacuations = res;
@@ -424,7 +427,7 @@
             console.log({ err });
           });
       };
-      
+
       const displayData = () => {
         if(barangays_visible) {
           barangays.map((item) => {
@@ -450,11 +453,11 @@
             }
           });
         }
-      
+
         if(tsunamis_visible){
           tsunamis.map((item) => {
             const content = `Tsunami area | ${item.risk_level}`;
-      
+
             if(item.risk_level == "LOW RISK"){
               if(!low_visible) return
             }else if(item.risk_level == "MEDIUM RISK"){
@@ -462,7 +465,7 @@
             }else if(item.risk_level == "HIGH RISK"){
               if(!high_visible) return
             }
-      
+
             if (item.latlong) {
               let imageUrl = "/images/Tsunami-Low.png";
               switch (item.risk_level) {
@@ -478,15 +481,15 @@
                 scaledSize: new google.maps.Size(36, 36),
               };
               displayMarker(item.latlong, content, icon);
-      
+
             }
-      
+
             if(item.coordinates != null){
               displayPolygon(coordinateParser(item.coordinates), "#135998")
             }
           });
         }
-      
+
         if(floods_visible){
           floods.map((item) => {
             if(item.risk_level == "LOW RISK"){
@@ -518,9 +521,9 @@
             }
           });
         }
-      
+
         if(storm_surges_visible){
-      
+
           storm_surges.map((item) => {
             const content = `Storm Surge area | ${item.risk_level}`;
             if(item.risk_level == "LOW RISK"){
@@ -552,7 +555,7 @@
           });
         }
       };
-      
+
       const displayMarker = (latlong, content, icon, draggable = false) => {
         const position = {
           lat: parseFloat(latlong.split(",")[0]),
@@ -572,11 +575,11 @@
         });
         return marker
       };
-      
-      
+
+
       const displayPolygon = (coordinates, color = "#FF0000") => {
         console.log({coordinates});
-      
+
         const bermudaTriangle = new google.maps.Polygon({
           paths: coordinates,
           strokeColor: color,
@@ -585,10 +588,10 @@
           fillColor: color,
           fillOpacity: 0.35,
         });
-      
+
         bermudaTriangle.setMap(map);
       }
-      
+
       const coordinateParser = (coordinateString) => {
         let coordinates = []
         try {
