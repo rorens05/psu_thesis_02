@@ -9,14 +9,14 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV['DB_NAME'] || "psu_thesis_2" %>
+  database: <%= ENV['DB_NAME'] || "app_dev" %>
   username: <%= ENV['DB_USER'] || "username" %>
   password: <%= ENV['DB_PASSWORD'] || "password" %>
   host:     <%= ENV['DB_HOST'] || "localhost" %>
 
 test:
   <<: *default
-  database: <%= ENV['DB_NAME'] || "psu_thesis_2_test" %>
+  database: <%= ENV['DB_NAME'] || "app_dev_test" %>
   username: <%= ENV['DB_USER'] || "username" %>
   password: <%= ENV['DB_PASSWORD'] || "password" %>
   host:     <%= ENV['DB_HOST'] || "localhost" %>
